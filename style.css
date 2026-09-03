@@ -6,57 +6,33 @@
    sans body (Switzer).
    ========================================================================== */
 
-[data-theme='dark'] {
-  --color-bg: #122a43;
-  --color-surface: #16324f;
-  --color-surface-2: #193957;
-  --color-surface-offset: #1c3f60;
-  --color-surface-offset-2: #204569;
-  --color-divider: #2c4a68;
-  --color-border: #3a5978;
-  --color-text: #f5f4ef;
-  --color-text-muted: #b8c2cc;
-  --color-text-faint: #8695a3;
-  --color-text-inverse: #122a43;
+:root {
+  --color-bg: #f7f5ef;
+  --color-surface: #ffffff;
+  --color-surface-2: #ffffff;
+  --color-surface-offset: #ecefe9;
+  --color-surface-offset-2: #dfe4da;
+  --color-divider: #e6e2d6;
+  --color-border: #d4cfc0;
 
-  --color-primary: #c9a227;
-  --color-primary-hover: #d9b23a;
-  --color-primary-active: #e6c04d;
-  --color-primary-highlight: #2c3e26;
-
-  --color-blue: #c9a227;
-  --color-blue-hover: #d9b23a;
-  --color-blue-highlight: #3a3220;
-
-  --color-success: #c9a227;
-  --color-success-highlight: #3a3220;
-  --color-error: #d98d82;
-  --color-error-highlight: #3a2420;
-}
-
-
-  /* Text — warm charcoal-brown, not pure black */
-  --color-text: #3c2e2b;
-  --color-text-muted: #7c6864;
-  --color-text-faint: #b79e97;
+  --color-text: #30383d;
+  --color-text-muted: #66727a;
+  --color-text-faint: #98a2a8;
   --color-text-inverse: #ffffff;
 
-  /* Primary — dusty brick red, the main call-to-action colour */
-  --color-primary: #a9463f;
-  --color-primary-hover: #8f3830;
-  --color-primary-active: #7a2e28;
-  --color-primary-highlight: #f7deda;
+  --color-primary: #496a82;
+  --color-primary-hover: #3d5a70;
+  --color-primary-active: #334c5e;
+  --color-primary-highlight: #e4eaee;
 
-  /* Secondary accent — dusty powder blue, used for trust cues & price figures */
-  --color-blue: #46708f;
-  --color-blue-hover: #35586f;
-  --color-blue-highlight: #dce7ee;
+  --color-blue: #d6bc6a;
+  --color-blue-hover: #c2a855;
+  --color-blue-highlight: #f5eeda;
 
-  /* Semantic — reuses the two-colour palette rather than adding green */
-  --color-success: #46708f;
-  --color-success-highlight: #dce7ee;
-  --color-error: #8f3830;
-  --color-error-highlight: #f7deda;
+  --color-success: #7892a3;
+  --color-success-highlight: #e8edf0;
+  --color-error: #a85c52;
+  --color-error-highlight: #f3e3e0;
 
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
@@ -75,70 +51,8 @@
   --content-wide: 1180px;
   --content-full: 100%;
 
-  --font-display: 'Erode', 'Iowan Old Style', Georgia, serif;
-  --font-body: 'Switzer', 'Segoe UI', system-ui, sans-serif;
-}
-
-[data-theme='dark'] {
-  --color-bg: #1b1412;
-  --color-surface: #221812;
-  --color-surface-2: #241a15;
-  --color-surface-offset: #2c1e19;
-  --color-surface-offset-2: #34241d;
-  --color-divider: #3a2822;
-  --color-border: #4a3129;
-  --color-text: #ede0da;
-  --color-text-muted: #b49b92;
-  --color-text-faint: #7c6560;
-  --color-text-inverse: #1b1412;
-
-  --color-primary: #d98d82;
-  --color-primary-hover: #e0a199;
-  --color-primary-active: #e6ada6;
-  --color-primary-highlight: #3a2420;
-
-  --color-blue: #8fb0c4;
-  --color-blue-hover: #9bb9cb;
-  --color-blue-highlight: #202e36;
-
-  --color-success: #8fb0c4;
-  --color-success-highlight: #202e36;
-  --color-error: #e0a199;
-  --color-error-highlight: #3a2420;
-
-  --shadow-sm: 0 1px 2px oklch(0 0 0 / 0.3);
-  --shadow-md: 0 6px 20px oklch(0 0 0 / 0.35);
-  --shadow-lg: 0 20px 48px oklch(0 0 0 / 0.5);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']):not([data-theme='dark']) {
-  --color-bg: #122a43;
-  --color-surface: #16324f;
-  --color-surface-2: #193957;
-  --color-surface-offset: #1c3f60;
-  --color-surface-offset-2: #204569;
-  --color-divider: #2c4a68;
-  --color-border: #3a5978;
-  --color-text: #f5f4ef;
-  --color-text-muted: #b8c2cc;
-  --color-text-faint: #8695a3;
-  --color-text-inverse: #122a43;
-
-  --color-primary: #c9a227;
-  --color-primary-hover: #d9b23a;
-  --color-primary-active: #e6c04d;
-  --color-primary-highlight: #2c3e26;
-
-  --color-blue: #c9a227;
-  --color-blue-hover: #d9b23a;
-  --color-blue-highlight: #3a3220;
-
-  --color-success: #c9a227;
-  --color-success-highlight: #3a3220;
-  --color-error: #d98d82;
-  --color-error-highlight: #3a2420;
-}
+  --font-display: 'Montserrat', 'Segoe UI', sans-serif;
+  --font-body: 'Montserrat', 'Segoe UI', system-ui, sans-serif;
 }
 
 /* Type scale */
