@@ -1,4 +1,3 @@
-
 // Mobile nav toggle
 (function () {
   const btn = document.querySelector('[data-nav-toggle]');
@@ -38,8 +37,7 @@
   els.forEach((el) => io.observe(el));
 })();
 
-// Parallax background layering — subtle drift on the hero/about decorative
-// blobs as the page scrolls, layered on top of the scroll-reveal above.
+// Parallax background layering
 (function () {
   const layers = document.querySelectorAll('.hero, .about');
   if (!layers.length || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -64,10 +62,7 @@
   update();
 })();
 
-// Quote form — submits to Web3Forms (https://web3forms.com), a free form-to-email
-// service. No backend/server needed. To activate: sign up free at web3forms.com,
-// verify the inbox that should receive quotes, then paste the access key into the
-// hidden "access_key" input in index.html (search for YOUR_WEB3FORMS_ACCESS_KEY).
+// Quote form — submits to Web3Forms
 (function () {
   const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
   const form = document.querySelector('[data-quote-form]');
@@ -87,13 +82,12 @@
     if (errorBox) errorBox.hidden = true;
 
     if (!accessKey || accessKey === 'YOUR_WEB3FORMS_ACCESS_KEY') {
-      // Not configured yet — fail gracefully with a clear message instead of a silent no-op.
       if (errorBox) errorBox.hidden = false;
       return;
     }
 
     const data = new FormData(form);
-    data.delete('photos'); // file attachments aren't supported on the free plan — see the hint text near the upload field
+    data.delete('photos');
 
     if (submitBtn) {
       submitBtn.disabled = true;
@@ -125,6 +119,8 @@
       }
     }
   });
+})();
+
 // Animated counting stats
 (function () {
   const nums = document.querySelectorAll('.stat-num[data-count-to]');
@@ -154,7 +150,7 @@
   );
   nums.forEach((el) => io.observe(el));
 })();
-})();
+
 // Hero video: pins full-width at top, shrinks and rounds as you scroll
 (function () {
   const pin = document.querySelector('[data-hero-pin]');
@@ -183,15 +179,3 @@
   window.addEventListener('resize', update);
   update();
 })();
-
-
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(update);
-      ticking = true;
-    }
-  }, { passive: true });
-  window.addEventListener('resize', update);
-  update();
-})();
- 
