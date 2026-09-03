@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220" width="64" height="64" role="img" aria-label="Yorkshire Dales Handyman favicon">
+  <rect x="4" y="4" width="192" height="212" rx="26" fill="#1F3B5C"/>
+  <path d="M46,132 L70,96 L86,115 L108,82 L138,128 L152,110 L152,150 L46,150 Z"
+        fill="#708090"/>
+  <g>
+    <rect x="93" y="90" width="14" height="80" rx="6" fill="#ffffff"/>
+    <rect x="60" y="60" width="80" height="28" rx="7" fill="#ffffff"/>
+    <path d="M118,58 L142,58 L130,80 Z" fill="#1F3B5C"/>
+  </g>
+</svg>
