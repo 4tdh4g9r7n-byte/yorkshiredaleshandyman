@@ -1220,32 +1220,51 @@ section {
     grid-template-columns: 1fr;
   }
 }
-
-.hero-fullbleed {
+.hero-pin {
   position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  margin-bottom: var(--space-8);
-  will-change: transform, width, height, border-radius;
+  height: 170vh;
+  margin-bottom: var(--space-10);
 }
 .hero-fullbleed {
-  background: #000;
-}
-.hero-fullbleed img {
-  position: absolute;
-  inset: 0;
+  position: sticky;
+  top: 0;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: 100vh;
+  max-height: 760px;
+  overflow: hidden;
+  background: #000;
+  transform-origin: center top;
+  transform: scale(var(--hero-scale, 1));
+  border-radius: var(--hero-radius, 0px);
+  box-shadow: var(--hero-shadow, none);
 }
+.hero-fullbleed img,
 .hero-fullbleed video {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+}
+.hero-fullbleed img {
+  object-fit: cover;
+}
+.hero-fullbleed video {
   object-fit: contain;
 }
+.hero-grid {
+  grid-template-columns: 1fr;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-pin {
+    height: auto;
+  }
+  .hero-fullbleed {
+    position: relative;
+    height: 60vh;
+    transform: none !important;
+    border-radius: var(--radius-xl) !important;
+  }
+} 
 
 .hero-visual[data-hero-dock] {
   background: transparent;
