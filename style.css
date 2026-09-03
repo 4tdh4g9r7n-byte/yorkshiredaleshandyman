@@ -6,16 +6,34 @@
    sans body (Switzer).
    ========================================================================== */
 
-:root,
-[data-theme='light'] {
-  /* Surfaces — warm white with a soft pastel-rose undertone */
-  --color-bg: #fbf6f2;
-  --color-surface: #fdf8f5;
-  --color-surface-2: #ffffff;
-  --color-surface-offset: #f6e4de;
-  --color-surface-offset-2: #eed2c8;
-  --color-divider: #f0dbd3;
-  --color-border: #e3c7bc;
+[data-theme='dark'] {
+  --color-bg: #122a43;
+  --color-surface: #16324f;
+  --color-surface-2: #193957;
+  --color-surface-offset: #1c3f60;
+  --color-surface-offset-2: #204569;
+  --color-divider: #2c4a68;
+  --color-border: #3a5978;
+  --color-text: #f5f4ef;
+  --color-text-muted: #b8c2cc;
+  --color-text-faint: #8695a3;
+  --color-text-inverse: #122a43;
+
+  --color-primary: #c9a227;
+  --color-primary-hover: #d9b23a;
+  --color-primary-active: #e6c04d;
+  --color-primary-highlight: #2c3e26;
+
+  --color-blue: #c9a227;
+  --color-blue-hover: #d9b23a;
+  --color-blue-highlight: #3a3220;
+
+  --color-success: #c9a227;
+  --color-success-highlight: #3a3220;
+  --color-error: #d98d82;
+  --color-error-highlight: #3a2420;
+}
+
 
   /* Text — warm charcoal-brown, not pure black */
   --color-text: #3c2e2b;
@@ -95,21 +113,32 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']):not([data-theme='dark']) {
-    --color-bg: #1b1412;
-    --color-surface: #221812;
-    --color-surface-2: #241a15;
-    --color-surface-offset: #2c1e19;
-    --color-surface-offset-2: #34241d;
-    --color-divider: #3a2822;
-    --color-border: #4a3129;
-    --color-text: #ede0da;
-    --color-text-muted: #b49b92;
-    --color-text-faint: #7c6560;
-    --color-primary: #d98d82;
-    --color-primary-hover: #e0a199;
-    --color-blue: #8fb0c4;
-    --color-blue-highlight: #202e36;
-  }
+  --color-bg: #122a43;
+  --color-surface: #16324f;
+  --color-surface-2: #193957;
+  --color-surface-offset: #1c3f60;
+  --color-surface-offset-2: #204569;
+  --color-divider: #2c4a68;
+  --color-border: #3a5978;
+  --color-text: #f5f4ef;
+  --color-text-muted: #b8c2cc;
+  --color-text-faint: #8695a3;
+  --color-text-inverse: #122a43;
+
+  --color-primary: #c9a227;
+  --color-primary-hover: #d9b23a;
+  --color-primary-active: #e6c04d;
+  --color-primary-highlight: #2c3e26;
+
+  --color-blue: #c9a227;
+  --color-blue-hover: #d9b23a;
+  --color-blue-highlight: #3a3220;
+
+  --color-success: #c9a227;
+  --color-success-highlight: #3a3220;
+  --color-error: #d98d82;
+  --color-error-highlight: #3a2420;
+}
 }
 
 /* Type scale */
