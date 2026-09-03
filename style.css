@@ -957,6 +957,8 @@ section {
 }
 .hero-visual video {
   pointer-events: none;
+  object-fit: contain;
+  background: #000;
 }
 
 @media (prefers-reduced-motion: reduce) {
