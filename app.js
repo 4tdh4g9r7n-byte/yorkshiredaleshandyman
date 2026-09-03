@@ -63,7 +63,7 @@
   let ticking = false;
   function update() {
     layers.forEach((el) => {
-      const offset = el.getBoundingClientRect().top * 0.08;
+      const offset = el.getBoundingClientRect().top * 0.15;
       el.style.setProperty('--parallax-offset', offset.toFixed(1) + 'px');
     });
     ticking = false;
