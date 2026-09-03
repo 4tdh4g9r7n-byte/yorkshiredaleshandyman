@@ -155,3 +155,57 @@
   nums.forEach((el) => io.observe(el));
 })();
 })();
+// Full-bleed hero video morphing into docked card on scroll
+(function () {
+  const overlay = document.querySelector('[data-hero-fullbleed]');
+  const dock = document.querySelector('[data-hero-dock]');
+  const heroSection = document.querySelector('.hero');
+  if (!overlay || !dock || !heroSection) return;
+
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  let ticking = false;
+
+  function update() {
+    ticking = false;
+    const heroHeight = heroSection.offsetHeight;
+    const progress = Math.min(Math.max(window.scrollY / (heroHeight * 0.9), 0), 1);
+    const dockRect = dock.getBoundingClientRect();
+
+    const startW = window.innerWidth;
+    const startH = window.innerHeight;
+    const endW = dockRect.width;
+    const endH = dockRect.height;
+    const endTop = dockRect.top;
+    const endLeft = dockRect.left;
+
+    const w = startW + (endW - startW) * progress;
+    const h = startH + (endH - startH) * progress;
+    const radius = progress * 20;
+
+    overlay.style.borderRadius = radius + 'px';
+    overlay.style.boxShadow = progress > 0.05 ? '0 20px 48px rgba(0,0,0,0.25)' : 'none';
+    overlay.style.width = w + 'px';
+    overlay.style.height = h + 'px';
+
+    if (progress >= 1) {
+      overlay.style.position = 'absolute';
+      overlay.style.top = endTop + window.scrollY + 'px';
+      overlay.style.left = endLeft + window.scrollX + 'px';
+    } else {
+      overlay.style.position = 'fixed';
+      overlay.style.top = (0 + (endTop - 0) * progress) + 'px';
+      overlay.style.left = (0 + (endLeft - 0) * progress) + 'px';
+    }
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(update);
+      ticking = true;
+    }
+  }, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+})();
+ 
