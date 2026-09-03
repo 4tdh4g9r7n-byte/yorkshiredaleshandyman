@@ -64,7 +64,13 @@
 <main id="main">
 
   <!-- ===================== Header / Sub-header (Hero) ===================== -->
-  <section id="top" class="hero">
+        <section id="top" class="hero">
+    <div class="hero-fullbleed" data-hero-fullbleed aria-hidden="true">
+      <img src="./images/hero-handyman.jpg" alt="" loading="eager" />
+      <video class="hero-video" poster="./images/hero-handyman.jpg" autoplay muted loop playsinline preload="auto">
+        <source src="./videos/hero-loop.mp4" type="video/mp4" />
+      </video>
+    </div>
     <div class="wrap hero-grid">
       <div>
    <p class="eyebrow">Aire Valley · Wharfedale · Craven</p>
@@ -82,12 +88,7 @@
         </div>
       </div>
 
-      <div class="hero-visual">
-        <img src="./images/hero-handyman.jpg" alt="A craftsman fitting bespoke oak floating shelves into a stone alcove of a Yorkshire Dales cottage" loading="eager" />
-        <video class="hero-video" poster="./images/hero-handyman.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true">
-          <source src="./videos/hero-loop.mp4" type="video/mp4" />
-        </video>
-      </div>
+            <div class="hero-visual" data-hero-dock></div>
     </div>
   </section>
 
