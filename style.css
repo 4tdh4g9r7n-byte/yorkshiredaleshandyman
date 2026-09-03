@@ -958,11 +958,7 @@ section {
 .hero-visual video {
   pointer-events: none;
 }
-@media (max-width: 640px) {
-  .hero-visual video {
-    display: none;
-  }
-}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-visual video {
     display: none;
