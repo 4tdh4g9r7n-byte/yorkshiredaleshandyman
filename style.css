@@ -294,24 +294,26 @@ section {
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-primary);
+  color: var(--color-blue);
   margin-bottom: var(--space-5);
 }
 .eyebrow::before {
   content: '';
   width: 22px;
   height: 1px;
-  background: var(--color-primary);
+  background: var(--color-blue);
 }
 
 .hero h1 {
   font-family: var(--font-display);
   font-size: var(--text-3xl);
-  font-weight: 500;
-  letter-spacing: -0.01em;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
   color: var(--color-text);
   margin-bottom: var(--space-6);
 }
+
 
 .hero-sub {
   font-size: var(--text-lg);
@@ -397,10 +399,13 @@ section {
 .section-head h2 {
   font-family: var(--font-display);
   font-size: var(--text-2xl);
-  font-weight: 500;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
   color: var(--color-text);
   margin-bottom: var(--space-4);
 }
+
 .section-head p {
   font-size: var(--text-base);
   color: var(--color-text-muted);
@@ -553,12 +558,15 @@ section {
   height: 100%;
 }
 
-.about-body h2 {
+..about-body h2 {
   font-family: var(--font-display);
   font-size: var(--text-2xl);
-  font-weight: 500;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
   margin-bottom: var(--space-6);
 }
+
 .about-body p {
   color: var(--color-text-muted);
   margin-bottom: var(--space-5);
