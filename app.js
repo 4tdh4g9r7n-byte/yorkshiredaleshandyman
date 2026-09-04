@@ -37,7 +37,8 @@
   els.forEach((el) => io.observe(el));
 })();
 
-// Parallax background layering
+// Parallax background layering — subtle drift on the hero/about decorative
+// blobs as the page scrolls, layered on top of the scroll-reveal above.
 (function () {
   const layers = document.querySelectorAll('.hero, .about');
   if (!layers.length || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -62,7 +63,10 @@
   update();
 })();
 
-// Quote form — submits to Web3Forms
+// Quote form — submits to Web3Forms (https://web3forms.com), a free form-to-email
+// service. No backend/server needed. To activate: sign up free at web3forms.com,
+// verify the inbox that should receive quotes, then paste the access key into the
+// hidden "access_key" input in index.html (search for YOUR_WEB3FORMS_ACCESS_KEY).
 (function () {
   const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
   const form = document.querySelector('[data-quote-form]');
@@ -149,33 +153,4 @@
     { threshold: 0.4 }
   );
   nums.forEach((el) => io.observe(el));
-})();
-
-// Hero video: pins full-width at top, shrinks and rounds as you scroll
-(function () {
-  const pin = document.querySelector('[data-hero-pin]');
-  const el = document.querySelector('[data-hero-fullbleed]');
-  if (!pin || !el) return;
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  let ticking = false;
-  function update() {
-    ticking = false;
-    const rect = pin.getBoundingClientRect();
-    const scrollable = pin.offsetHeight - window.innerHeight;
-    const scrolled = -rect.top;
-    const progress = Math.min(Math.max(scrolled / scrollable, 0), 1);
-
-    el.style.setProperty('--hero-scale', (1 - progress * 0.32).toFixed(3));
-    el.style.setProperty('--hero-radius', (progress * 24).toFixed(1) + 'px');
-    el.style.setProperty('--hero-shadow', progress > 0.05 ? '0 20px 48px rgba(0,0,0,0.25)' : 'none');
-  }
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(update);
-      ticking = true;
-    }
-  }, { passive: true });
-  window.addEventListener('resize', update);
-  update();
 })();
