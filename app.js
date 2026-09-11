@@ -1,156 +1,111 @@
-// Mobile nav toggle
-(function () {
-  const btn = document.querySelector('[data-nav-toggle]');
-  const menu = document.querySelector('[data-mobile-menu]');
-  if (!btn || !menu) return;
-  btn.addEventListener('click', () => {
-    const open = menu.classList.toggle('is-open');
-    btn.setAttribute('aria-expanded', String(open));
-  });
-  menu.querySelectorAll('a').forEach((a) =>
-    a.addEventListener('click', () => {
-      menu.classList.remove('is-open');
-      btn.setAttribute('aria-expanded', 'false');
-    })
-  );
-})();
+document.addEventListener("DOMContentLoaded", () => {
+  const navToggle = document.querySelector("[data-nav-toggle]");
+  const mobileMenu = document.querySelector("[data-mobile-menu]");
+  const mobileLinks = document.querySelectorAll("[data-mobile-menu] a");
 
-// Scroll-reveal — fades/slides sections and cards in as they enter the viewport
-(function () {
-  const els = document.querySelectorAll('.reveal');
-  if (!els.length) return;
-  if (!('IntersectionObserver' in window)) {
-    els.forEach((el) => el.classList.add('is-visible'));
-    return;
-  }
-  const io = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          io.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
-  );
-  els.forEach((el) => io.observe(el));
-})();
+  if (navToggle && mobileMenu) {
+    navToggle.addEventListener("click", () => {
+      const isOpen = mobileMenu.classList.toggle("is-open");
 
-// Parallax background layering — subtle drift on the hero/about decorative
-// blobs as the page scrolls, layered on top of the scroll-reveal above.
-(function () {
-  const layers = document.querySelectorAll('.hero, .about');
-  if (!layers.length || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  let ticking = false;
-  function update() {
-    layers.forEach((el) => {
-      const offset = el.getBoundingClientRect().top * 0.15;
-      el.style.setProperty('--parallax-offset', offset.toFixed(1) + 'px');
+      navToggle.setAttribute("aria-expanded", String(isOpen));
+      navToggle.setAttribute(
+        "aria-label",
+        isOpen ? "Close menu" : "Open menu"
+      );
     });
-    ticking = false;
+
+    mobileLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        mobileMenu.classList.remove("is-open");
+        navToggle.setAttribute("aria-expanded", "false");
+        navToggle.setAttribute("aria-label", "Open menu");
+      });
+    });
   }
-  window.addEventListener(
-    'scroll',
-    () => {
-      if (!ticking) {
-        requestAnimationFrame(update);
-        ticking = true;
+
+  const revealItems = document.querySelectorAll(".reveal");
+  const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  if (reducedMotion || !("IntersectionObserver" in window)) {
+    revealItems.forEach((item) => item.classList.add("is-visible"));
+  } else {
+    const revealObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        });
+      },
+      {
+        threshold: 0.12,
+        rootMargin: "0px 0px -40px 0px"
       }
-    },
-    { passive: true }
-  );
-  update();
-})();
+    );
 
-// Quote form — submits to Web3Forms (https://web3forms.com), a free form-to-email
-// service. No backend/server needed. To activate: sign up free at web3forms.com,
-// verify the inbox that should receive quotes, then paste the access key into the
-// hidden "access_key" input in index.html (search for YOUR_WEB3FORMS_ACCESS_KEY).
-(function () {
-  const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
-  const form = document.querySelector('[data-quote-form]');
-  const confirmation = document.querySelector('[data-confirmation]');
-  const errorBox = document.querySelector('[data-form-error]');
-  const submitBtn = document.querySelector('[data-submit-btn]');
-  if (!form || !confirmation) return;
+    revealItems.forEach((item) => revealObserver.observe(item));
+  }
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    if (!form.checkValidity()) {
-      form.reportValidity();
+  const quoteForm = document.querySelector("[data-quote-form]");
+  const confirmation = document.querySelector("[data-confirmation]");
+  const errorMessage = document.querySelector("[data-form-error]");
+  const submitButton = document.querySelector("[data-submit-btn]");
+
+  if (!quoteForm) return;
+
+  quoteForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    if (errorMessage) {
+      errorMessage.hidden = true;
+    }
+
+    if (!quoteForm.checkValidity()) {
+      quoteForm.reportValidity();
       return;
     }
 
-    const accessKey = form.querySelector('[name="access_key"]')?.value || '';
-    if (errorBox) errorBox.hidden = true;
-
-    if (!accessKey || accessKey === 'YOUR_WEB3FORMS_ACCESS_KEY') {
-      if (errorBox) errorBox.hidden = false;
-      return;
-    }
-
-    const data = new FormData(form);
-    data.delete('photos');
-
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Sending…';
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = "Sending...";
     }
 
     try {
-      const res = await fetch(WEB3FORMS_ENDPOINT, {
-        method: 'POST',
-        headers: { Accept: 'application/json' },
-        body: data,
-      });
-      const result = await res.json().catch(() => ({}));
+      const formData = new FormData(quoteForm);
 
-      if (res.ok && result.success) {
-        form.classList.add('is-hidden');
-        confirmation.classList.add('is-visible');
-        confirmation.setAttribute('tabindex', '-1');
-        confirmation.focus();
-      } else {
-        throw new Error(result.message || 'Submission failed');
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error("The form could not be sent.");
       }
-    } catch (err) {
-      if (errorBox) errorBox.hidden = false;
-    } finally {
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Send My Details — Get a Fixed Quote';
+
+      quoteForm.reset();
+      quoteForm.classList.add("is-hidden");
+
+      if (confirmation) {
+        confirmation.classList.add("is-visible");
+        confirmation.scrollIntoView({
+          behavior: reducedMotion ? "auto" : "smooth",
+          block: "center"
+        });
+      }
+    } catch (error) {
+      if (errorMessage) {
+        errorMessage.hidden = false;
+      }
+
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = "Send My Details — Get a Quote";
       }
     }
   });
-})();
-
-// Animated counting stats
-(function () {
-  const nums = document.querySelectorAll('.stat-num[data-count-to]');
-  if (!nums.length || !('IntersectionObserver' in window)) return;
-  const io = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const el = entry.target;
-        const target = parseFloat(el.dataset.countTo);
-        const prefix = el.dataset.prefix || '';
-        const suffix = el.dataset.suffix || '';
-        const duration = 1100;
-        const start = performance.now();
-        function tick(now) {
-          const progress = Math.min((now - start) / duration, 1);
-          const eased = 1 - Math.pow(1 - progress, 3);
-          const value = Math.round(target * eased);
-          el.textContent = prefix + value + suffix;
-          if (progress < 1) requestAnimationFrame(tick);
-        }
-        requestAnimationFrame(tick);
-        io.unobserve(el);
-      });
-    },
-    { threshold: 0.4 }
-  );
-  nums.forEach((el) => io.observe(el));
-})();
+});
