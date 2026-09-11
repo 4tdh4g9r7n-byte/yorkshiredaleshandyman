@@ -1318,3 +1318,27 @@ textarea:focus-visible {
     display: none;
   }
 }
+/* Keep the native date picker aligned with the other quote-form fields */
+.form-field input[type="date"] {
+  width: 100%;
+  min-height: 44px;
+  height: 44px;
+  box-sizing: border-box;
+  padding: 0.75em 1em;
+  line-height: 1.2;
+  font-family: inherit;
+  font-size: var(--text-base);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Restore a neat calendar icon on iPhone/iPad */
+.form-field input[type="date"]::-webkit-calendar-picker-indicator {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0.72;
+}
+
