@@ -850,6 +850,39 @@
         VdkEdgeWebchat.mount({ ...webchat, mode: "bubble", baseUrl: "https://vdk-viber-runtime-prod.bot.botpress.host", botId: "68c47593-d326-477c-9b10-abfac4bd5b66" })
       );
   </script>
+
+  <script>
+    /* Lifts the chat bubble above the quick contact bar on phones */
+    (function () {
+      var tries = 0;
+      function lift() {
+        var phone = window.matchMedia('(max-width: 760px)').matches;
+        var bar = document.querySelector('.mobile-contact-bar');
+        var barHeight = bar ? bar.offsetHeight : 60;
+        var all = document.body.querySelectorAll('*');
+        for (var i = 0; i < all.length; i++) {
+          var el = all[i];
+          if (el.closest('.mobile-contact-bar') || el.closest('.site-header')) continue;
+          var cs = getComputedStyle(el);
+          if (cs.position !== 'fixed') continue;
+          var r = el.getBoundingClientRect();
+          if (r.width < 40 || r.width > 140 || r.height < 40 || r.height > 140) continue;
+          if (r.left < window.innerWidth / 2) continue;
+          if (phone) {
+            el.style.setProperty('bottom', 'calc(' + (barHeight + 16) + 'px + env(safe-area-inset-bottom))', 'important');
+            el.style.setProperty('z-index', '2147483000', 'important');
+          } else {
+            el.style.removeProperty('bottom');
+          }
+        }
+      }
+      var timer = setInterval(function () {
+        lift();
+        if (++tries > 40) clearInterval(timer);
+      }, 250);
+      window.addEventListener('resize', lift);
+    })();
+  </script>
   <script src="./app.js" defer></script>
 </body>
 </html>
