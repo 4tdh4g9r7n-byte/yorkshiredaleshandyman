@@ -1445,3 +1445,12 @@ section {
   width: 100%;
   text-align: center;
 }
+
+/* Show the hero picture until the video is really playing, instead of a black box */
+.hero-visual video {
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+.hero-visual video.is-playing {
+  opacity: 1;
+}
