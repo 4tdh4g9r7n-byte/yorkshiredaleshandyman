@@ -25,8 +25,8 @@
     rel="stylesheet"
   />
 
-  <link rel="stylesheet" href="./base.css?v=20261114c" />
-  <link rel="stylesheet" href="./style.css?v=20261114c" />
+  <link rel="stylesheet" href="./base.css?v=20261114d" />
+  <link rel="stylesheet" href="./style.css?v=20261114d" />
   <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
   <link rel="stylesheet" href="https://vdk-viber-runtime-prod.bot.botpress.host/edge/webchat.css" />
 </head>
@@ -852,35 +852,33 @@
   </script>
 
   <script>
-    /* Lifts the chat bubble above the quick contact bar on phones */
+    /* Keeps the chat bubble above the quick contact bar, and the open chat window above the whole site */
     (function () {
-      var tries = 0;
-      function lift() {
+      function tidy() {
         var phone = window.matchMedia('(max-width: 760px)').matches;
         var bar = document.querySelector('.mobile-contact-bar');
         var barHeight = bar ? bar.offsetHeight : 60;
         var all = document.body.querySelectorAll('*');
         for (var i = 0; i < all.length; i++) {
           var el = all[i];
-          if (el.closest('.mobile-contact-bar') || el.closest('.site-header')) continue;
-          var cs = getComputedStyle(el);
-          if (cs.position !== 'fixed') continue;
+          if (el === bar || el.closest('.mobile-contact-bar')) continue;
+          if (getComputedStyle(el).position !== 'fixed') continue;
+          el.style.setProperty('z-index', '2147483000', 'important');
           var r = el.getBoundingClientRect();
-          if (r.width < 40 || r.width > 140 || r.height < 40 || r.height > 140) continue;
-          if (r.left < window.innerWidth / 2) continue;
-          if (phone) {
-            el.style.setProperty('bottom', 'calc(' + (barHeight + 16) + 'px + env(safe-area-inset-bottom))', 'important');
-            el.style.setProperty('z-index', '2147483000', 'important');
-          } else {
-            el.style.removeProperty('bottom');
+          var small = r.width >= 40 && r.width <= 140 && r.height >= 40 && r.height <= 140;
+          if (small && r.left >= window.innerWidth / 2) {
+            if (phone) {
+              el.style.setProperty('bottom', 'calc(' + (barHeight + 16) + 'px + env(safe-area-inset-bottom))', 'important');
+            } else {
+              el.style.removeProperty('bottom');
+            }
           }
         }
       }
-      var timer = setInterval(function () {
-        lift();
-        if (++tries > 40) clearInterval(timer);
-      }, 250);
-      window.addEventListener('resize', lift);
+      setInterval(tidy, 400);
+      window.addEventListener('resize', tidy);
+      window.addEventListener('touchend', function () { setTimeout(tidy, 150); }, { passive: true });
+      window.addEventListener('click', function () { setTimeout(tidy, 150); });
     })();
   </script>
   <script>
