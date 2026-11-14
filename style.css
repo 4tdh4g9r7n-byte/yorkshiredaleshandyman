@@ -1437,3 +1437,11 @@ section {
   margin: 0 !important;
   text-align: left !important;
 }
+
+/* Centre the Aire Valley, Wharfedale, Craven line under the hero video */
+.hero .eyebrow {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+}
