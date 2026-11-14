@@ -177,7 +177,7 @@
               muted
               loop
               playsinline
-              preload="metadata"
+              preload="auto"
               poster="./hero-handyman.jpg"
               aria-hidden="true"
             >
@@ -881,6 +881,37 @@
         if (++tries > 40) clearInterval(timer);
       }, 250);
       window.addEventListener('resize', lift);
+    })();
+  </script>
+  <script>
+    /* Starts the hero video as soon as the page opens */
+    (function () {
+      var v = document.querySelector('.hero-video');
+      if (!v) return;
+      v.muted = true;
+      v.defaultMuted = true;
+      v.setAttribute('playsinline', '');
+      function go() {
+        var p = v.play();
+        if (p && p.catch) p.catch(function () {});
+      }
+      function onFirstTouch() {
+        go();
+        ['touchstart', 'pointerdown', 'scroll', 'click', 'keydown'].forEach(function (e) {
+          window.removeEventListener(e, onFirstTouch);
+        });
+      }
+      go();
+      v.addEventListener('loadeddata', go);
+      v.addEventListener('canplay', go);
+      window.addEventListener('load', go);
+      document.addEventListener('visibilitychange', function () {
+        if (!document.hidden) go();
+      });
+      /* Phones in Low Power Mode block autoplay, so the first touch or scroll starts it */
+      ['touchstart', 'pointerdown', 'scroll', 'click', 'keydown'].forEach(function (e) {
+        window.addEventListener(e, onFirstTouch, { passive: true });
+      });
     })();
   </script>
   <script src="./app.js" defer></script>
