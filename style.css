@@ -1419,3 +1419,21 @@ section {
   padding-right: 2.5em;
 }
 
+/* Final overrides: no dash before the small labels, and an even date box */
+.eyebrow::before {
+  content: none !important;
+  display: none !important;
+}
+.quote-form .form-field input[type='date'] {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  height: 48px !important;
+  min-height: 48px !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  text-align: left !important;
+}
