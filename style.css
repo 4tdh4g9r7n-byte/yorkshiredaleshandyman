@@ -1382,3 +1382,18 @@ section {
     z-index: 2147483000 !important;
   }
 }
+
+/* ==========================================================================
+   Quick contact bar icon colours
+   Email: Outlook blue. Call: the same red as the quote section. WhatsApp: green.
+   ========================================================================== */
+
+.mobile-contact-bar a:nth-child(1) svg {
+  color: #0078d4;
+}
+.mobile-contact-bar a:nth-child(2) svg {
+  color: var(--color-blue);
+}
+.mobile-contact-bar a:nth-child(3) svg {
+  color: #25d366;
+}
