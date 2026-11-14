@@ -28,6 +28,7 @@
   <link rel="stylesheet" href="./base.css" />
   <link rel="stylesheet" href="./style.css" />
   <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  <link rel="stylesheet" href="https://vdk-viber-runtime-prod.bot.botpress.host/edge/webchat.css" />
 </head>
 
 <body>
@@ -841,8 +842,14 @@
       </a>
     </div>
   </footer>
-<script src="https://cdn.botpress.cloud/webchat/v5.0/inject.js"></script>
-<script src="https://files.bpcontent.cloud/2026/11/14/17/20261114171129-1W18LRTF.js" defer></script>
+  <script src="https://vdk-viber-runtime-prod.bot.botpress.host/edge/webchat.js"></script>
+  <script>
+    fetch("https://vdk-viber-runtime-prod.bot.botpress.host/edge/bots/68c47593-d326-477c-9b10-abfac4bd5b66/config")
+      .then((res) => res.json())
+      .then(({ webchat }) =>
+        VdkEdgeWebchat.mount({ ...webchat, mode: "bubble", baseUrl: "https://vdk-viber-runtime-prod.bot.botpress.host", botId: "68c47593-d326-477c-9b10-abfac4bd5b66" })
+      );
+  </script>
   <script src="./app.js" defer></script>
 </body>
 </html>
