@@ -1370,3 +1370,14 @@ section {
     padding-bottom: calc(var(--space-8) + 76px);
   }
 }
+
+/* ==========================================================================
+   Botpress chat bubble: lift it above the quick contact bar on phones
+   ========================================================================== */
+
+@media (max-width: 760px) {
+  .bpFab {
+    bottom: calc(76px + env(safe-area-inset-bottom)) !important;
+    right: 16px !important;
+  }
+}
