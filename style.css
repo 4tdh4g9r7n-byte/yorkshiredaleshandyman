@@ -1379,5 +1379,6 @@ section {
   .bpFab {
     bottom: calc(76px + env(safe-area-inset-bottom)) !important;
     right: 16px !important;
+    z-index: 2147483000 !important;
   }
 }
