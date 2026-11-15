@@ -1477,3 +1477,81 @@ section {
   color: var(--color-primary);
 }
 
+/* ==========================================================================
+   Quote list builder
+   ========================================================================== */
+.qb-title {
+  display: block;
+  font-weight: 700;
+  font-size: var(--text-base);
+  color: var(--color-text);
+}
+.qb-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.qb-group {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  overflow: hidden;
+}
+.qb-group > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 0.85rem 1rem;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  color: var(--color-text);
+}
+.qb-group > summary::-webkit-details-marker { display: none; }
+.qb-group > summary::after {
+  content: '+';
+  margin-left: auto;
+  font-size: 1.25rem;
+  color: var(--color-blue);
+}
+.qb-group[open] > summary::after { content: '\2212'; }
+.qb-count { color: var(--color-blue); margin-left: 0.4rem; }
+.qb-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.6rem 1rem;
+  border-top: 1px solid var(--color-divider);
+}
+.qb-row.is-on { background: #fbf3e0; }
+.qb-name { font-size: var(--text-sm); color: var(--color-text); }
+.qb-step { display: inline-flex; align-items: center; gap: 0.6rem; flex-shrink: 0; }
+.qb-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-text);
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.qb-btn:active { background: var(--color-text); color: #fff; }
+.qb-qty { min-width: 1.5rem; text-align: center; font-weight: 700; }
+.qb-summary {
+  margin-top: 0.75rem;
+  padding: 0.9rem 1rem;
+  border-radius: var(--radius-md);
+  background: #fbf3e0;
+  border: 1px solid #d5a03e;
+  color: var(--color-text);
+}
+.qb-summary ul { margin: 0.4rem 0 0; padding-left: 1.2rem; }
+.qb-summary[hidden], .qb-count:empty { display: none; }
