@@ -1158,6 +1158,34 @@
       })();
     </script>
 
+  <script>
+    /* Keeps the chat bubble above the phone contact bar. It only moves the small bubble, and does nothing while the chat window is open or the keyboard is showing. */
+    (function () {
+      var mq = window.matchMedia("(max-width: 760px)");
+      function lift() {
+        if (!mq.matches) return;
+        var vv = window.visualViewport;
+        if (vv && vv.height < window.innerHeight - 120) return;
+        var bar = document.querySelector(".mobile-contact-bar");
+        if (!bar) return;
+        var gap = Math.round(bar.getBoundingClientRect().height) + 16;
+        var els = document.querySelectorAll("body > *, body > * > *");
+        for (var i = 0; i < els.length; i++) {
+          var el = els[i];
+          if (el === bar || bar.contains(el) || el.tagName === "SCRIPT" || el.tagName === "HEADER") continue;
+          var r = el.getBoundingClientRect();
+          if (r.width < 20 || r.width > 130 || r.height > 130) continue;
+          if (r.left < window.innerWidth / 2 || r.bottom < window.innerHeight - 150) continue;
+          if (getComputedStyle(el).position !== "fixed") continue;
+          if (el.style.getPropertyValue("bottom") !== gap + "px") {
+            el.style.setProperty("bottom", gap + "px", "important");
+          }
+        }
+      }
+      setInterval(lift, 1000);
+      window.addEventListener("load", lift);
+    })();
+  </script>
   <script src="./app.js" defer></script>
 </body>
 </html>
