@@ -1159,10 +1159,36 @@
     </script>
 
   <script>
-    /* Keeps the chat bubble above the phone contact bar. It only moves the small bubble, and does nothing while the chat window is open or the keyboard is showing. */
+    /* Phone chat helper. Lifts the small chat bubble above the contact bar, and makes sure the open chat window fits under the header so its close button stays reachable. It stands down while the keyboard is showing. */
     (function () {
       var mq = window.matchMedia("(max-width: 760px)");
-      function lift() {
+      var PROPS = ["top", "bottom", "height", "max-height"];
+      var fitted = new WeakMap();
+
+      function undoFit(el) {
+        var saved = fitted.get(el);
+        if (!saved) return;
+        PROPS.forEach(function (p) {
+          if (saved[p].v) el.style.setProperty(p, saved[p].v, saved[p].pr);
+          else el.style.removeProperty(p);
+        });
+        fitted.delete(el);
+      }
+
+      function fit(el, gap) {
+        if (fitted.has(el)) return;
+        var saved = {};
+        PROPS.forEach(function (p) {
+          saved[p] = { v: el.style.getPropertyValue(p), pr: el.style.getPropertyPriority(p) };
+        });
+        fitted.set(el, saved);
+        el.style.setProperty("top", "72px", "important");
+        el.style.setProperty("bottom", gap + "px", "important");
+        el.style.setProperty("height", "auto", "important");
+        el.style.setProperty("max-height", "none", "important");
+      }
+
+      function tidy() {
         if (!mq.matches) return;
         var vv = window.visualViewport;
         if (vv && vv.height < window.innerHeight - 120) return;
@@ -1174,16 +1200,21 @@
           var el = els[i];
           if (el === bar || bar.contains(el) || el.tagName === "SCRIPT" || el.tagName === "HEADER") continue;
           var r = el.getBoundingClientRect();
+          if (getComputedStyle(el).position !== "fixed") continue;
+          if (r.width >= 300 && r.height >= 300) {
+            if (r.top < 72 && !fitted.has(el)) fit(el, gap);
+            continue;
+          }
+          if (fitted.has(el) && r.width <= 130) undoFit(el);
           if (r.width < 20 || r.width > 130 || r.height > 130) continue;
           if (r.left < window.innerWidth / 2 || r.bottom < window.innerHeight - 150) continue;
-          if (getComputedStyle(el).position !== "fixed") continue;
           if (el.style.getPropertyValue("bottom") !== gap + "px") {
             el.style.setProperty("bottom", gap + "px", "important");
           }
         }
       }
-      setInterval(lift, 1000);
-      window.addEventListener("load", lift);
+      setInterval(tidy, 1000);
+      window.addEventListener("load", tidy);
     })();
   </script>
   <script src="./app.js" defer></script>
