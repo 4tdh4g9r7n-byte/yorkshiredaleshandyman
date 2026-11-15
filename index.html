@@ -26,7 +26,7 @@
   />
 
   <link rel="stylesheet" href="./base.css?v=20261115l" />
-  <link rel="stylesheet" href="./style.css?v=20261115l" />
+  <link rel="stylesheet" href="./style.css?v=20261115m" />
   <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
   <link rel="stylesheet" href="https://vdk-viber-runtime-prod.bot.botpress.host/edge/webchat.css" />
 </head>
@@ -480,34 +480,279 @@
               </select>
             </div>
 
-            <div class="form-field full">
-              <label for="service">What Do You Need Help With?</label>
-              <select id="service" name="service" required>
-                <option value="">Select a service</option>
-                <option>General handyman duties</option>
-                <option>Repairs and small fixes</option>
-                <option>Painting and decorating</option>
-                <option>Minor plastering repairs</option>
-                <option>Gardening and planting</option>
-                <option>Grass cutting</option>
-                <option>Hedge trimming</option>
-                <option>Pruning and general garden care</option>
-                <option>Flat-pack assembly</option>
-                <option>Furniture assembly</option>
-                <option>Shelving and storage installation</option>
-                <option>Bikes or outdoor equipment assembly</option>
-                <option>Landlord, holiday-let or ongoing maintenance</option>
-                <option>Something else</option>
-              </select>
+            <div class="form-field full" data-quote-builder>
+              <span class="qb-title">Build Your Quote List</span>
+              <p class="hint">
+                Tap + beside each job you need. Open a heading to see more jobs.
+                We will check your list and send you a clear price.
+              </p>
+
+              <div class="qb-groups">
+                <details class="qb-group" open>
+                  <summary>Repairs and small fixes<span class="qb-count" data-group-count></span></summary>
+                  <div class="qb-row" data-item="Fix a loose door, hinge or handle">
+                    <span class="qb-name">Fix a loose door, hinge or handle</span>
+                    <span class="qb-step">
+                      <button type="button" class="qb-btn" data-qb="minus" aria-label="Remove one: Fix a loose door, hinge or handle">&minus;</button>
+                      <span class="qb-qty" aria-live="polite">0</span>
+                      <button type="button" class="qb-btn" data-qb="plus" aria-label="Add one: Fix a loose door, hinge or handle">+</button>
+                    </span>
+                  </div>
+                  <div class="qb-row" data-item="Hang pictures or mirrors">
+                    <span class="qb-name">Hang pictures or mirrors</span>
+                    <span class="qb-step">
+                      <button type="button" class="qb-btn" data-qb="minus" aria-label="Remove one: Hang pictures or mirrors">&minus;</button>
+                      <span class="qb-qty" aria-live="polite">0</span>
+                      <button type="button" class="qb-btn" data-qb="plus" aria-label="Add one: Hang pictures or mirrors">+</button>
+                    </span>
+                  </div>
+                  <div class="qb-row" data-item="Hang a curtain pole or blind">
+                    <span class="qb-name">Hang a curtain pole or blind</span>
+                    <span class="qb-step">
+                      <button type="button" class="qb-btn" data-qb="minus" aria-label="Remove one: Hang a curtain pole or blind">&minus;</button>
+                      <span class="qb-qty" aria-live="polite">0</span>
+                      <button type="button" class="qb-btn" data-qb="plus" aria-label="Add one: Hang a curtain pole or blind">+</button>
+                    </span>
+                  </div>
+                  <div class="qb-row" data-item="Seal around a bath, sink or shower">
+                    <span class="qb-name">Seal around a bath, sink or shower</span>
+                    <span class="qb-step">
+                      <button type="button" class="qb-btn" data-qb="minus" aria-label="Remove one: Seal around a bath, sink or shower">&minus;</button>
+                      <span class="qb-qty" aria-live="polite">0</span>
+                      <button type="button" class="qb-btn" data-qb="plus" aria-label="Add one: Seal around a bath, sink or shower">+</button>
+                    </span>
+                  </div>
+                  <div class="qb-row" data-item="Replace a small fitting or fixture">
+                    <span class="qb-name">Replace a small fitting or fixture</span>
+                    <span class="qb-step">
+                      <button type="button" class="qb-btn" data-qb="minus" aria-label="Remove one: Replace a small fitting or fixture">&minus;</button>
+                      <span class="qb-qty" aria-live="polite">0</span>
+                      <button type="button" class="qb-btn" data-qb="plus" aria-label="Add one: Replace a small fitting or fixture">+</button>
+                    </span>
+                  </div>
+                  <div class="qb-row" data-item="Other small repair">
+                    <span class="qb-name">Other small repair</span>
+                    <span class="qb-step">
+                      <button type="button" class="qb-btn" data-qb="minus" aria-label="Remove one: Other small repair">&minus;</button>
+                      <span class="qb-qty" aria-live="polite">0</span>
+                      <button type="button" class="qb-btn" data-qb="plus" aria-label="Add one: Other small repair">+</button>
+                    </span>
+                  </div>
+                </details>
+                <details class="qb-group">
+                  <summary>Painting and decorating<span class="qb-count" data-group-count></span></summary>
+                  <div class="qb-row" data-item="Paint walls in a room">
+                    <span class="qb-name">Paint walls in a room</span>
+                    <span class="qb-step">
+                      <button type="button" class="qb-btn" data-qb="minus" aria-label="Remove one: Paint walls in a room">&minus;</button>
+                      <span class="qb-qty" aria-live="polite">0</span>
+                      <button type="button" class="qb-btn" data-qb="plus" aria-label="Add one: Paint walls in a room">+</button>
+                    </span>
+                  </div>
+                  <div class="qb-row" data-item="Paint woodwork or doors">
+                    <span class="qb-name">Paint woodwork or doors</span>
+                    <span class="qb-step">
+                      <button type="button" class="qb-btn" data-qb="minus" aria-label="Remove one: Paint woodwork or doors">&minus;</button>
+                      <span class="qb-qty" aria-live="polite">0</span>
+                      <button type="button" class="qb-btn" data-qb="plus" aria-label="Add one: Paint woodwork or doors">+</button>
+                    </span>
+                  </div>
+                  <div class="qb-row" data-item="Paint a ceiling">
+                    <span class="qb-name">Paint a ceiling</span>
+                    <span class="qb-step">
+                      <button type="button" class="qb-btn" data-qb="minus" aria-label="Remove one: Paint a ceiling">&minus;</button>
+                      <span class="qb-qty" aria-live="polite">0</span>
+                      <button type="button" class="qb-btn" data-qb="plus" aria-label="Add one: Paint a ceiling">+</button>
+                    </span>
+                  </div>
+                  <div class="qb-row" data-item="Fill and touch up paintwork">
+                    <span class="qb-name">Fill and touch up paintwork</span>
+                    <span class="qb-step">
+                      <button type="button" class="qb-btn" data-qb="minus" aria-label="Remove one: Fill and touch up paintwork">&minus;</button>
+                      <span class="qb-qty" aria-live="polite">0</span>
+                      <button type="button" class="qb-btn" data-qb="plus" aria-label="Add one: Fill and touch up paintwork">+</button>
+                    </span>
+                  </div>
+                </details>
+                <details class="qb-group">
+                  <summary>Plastering repairs<span class="qb-count" data-group-count></span></summary>
+                  <div class="qb-row" data-item="Small plaster patch repair">
+                    <span class="qb-name">Small plaster patch repair</span>
+                    <span class="qb-step">
+                      <button type="button" class="qb-btn" data-qb="minus" aria-label="Remove one: Small plaster patch repair">&minus;</button>
+                      <span class="qb-qty" aria-live="polite">0</span>
+                      <button type="button" class="qb-btn" data-qb="plus" aria-label="Add one: Small plaster patch repair">+</button>
+                    </span>
+                  </div>
+                  <div class="qb-row" data-item="Fill and make good cracks">
+                    <span class="qb-name">Fill and make good cracks</span>
+                    <span class="qb-step">
+                      <button type="button" class="qb-btn" data-qb="minus" aria-label="Remove one: Fill and make good cracks">&minus;</button>
+                      <span class="qb-qty" aria-live="polite">0</span>
+                      <button type="button" class="qb-btn" data-qb="plus" aria-label="Add one: Fill and make good cracks">+</button>
+                    </span>
+                  </div>
+                </details>
+                <details class="qb-group">
+                  <summary>Assembly<span class="qb-count" data-group-count></span></summary>
+                  <div class="qb-row" data-item="Flat pack wardrobe">
+                    <span class="qb-name">Flat pack wardrobe</span>
+                    <span class="qb-step">
+                      <button type="button" class="qb-btn" data-qb="minus" aria-label="Remove one: Flat pack wardrobe">&minus;</button>
+                      <span class="qb-qty" aria-live="polite">0</span>
+                      <button type="button" class="qb-btn" data-qb="plus" aria-label="Add one: Flat pack wardrobe">+</button>
+                    </span>
+                  </div>
+                  <div class="qb-row" data-item="Flat pack bed">
+                    <span class="qb-name">Flat pack bed</span>
+                    <span class="qb-step">
+                      <button type="button" class="qb-btn" data-qb="minus" aria-label="Remove one: Flat pack bed">&minus;</button>
+                      <span class="qb-qty" aria-live="polite">0</span>
+                      <button type="button" class="qb-btn" data-qb="plus" aria-label="Add one: Flat pack bed">+</button>
+                    </span>
+                  </div>
+                  <div class="qb-row" data-item="Chest of drawers or bookcase">
+                    <span class="qb-name">Chest of drawers or bookcase</span>
+                    <span class="qb-step">
+                      <button type="button" class="qb-btn" data-qb="minus" aria-label="Remove one: Chest of drawers or bookcase">&minus;</button>
+                      <span class="qb-qty" aria-live="polite">0</span>
+                      <button type="button" class="qb-btn" data-qb="plus" aria-label="Add one: Chest of drawers or bookcase">+</button>
+                    </span>
+                  </div>
+                  <div class="qb-row" data-item="Desk or table">
+                    <span class="qb-name">Desk or table</span>
+                    <span class="qb-step">
+                      <button type="button" class="qb-btn" data-qb="minus" aria-label="Remove one: Desk or table">&minus;</button>
+                      <span class="qb-qty" aria-live="polite">0</span>
+                      <button type="button" class="qb-btn" data-qb="plus" aria-label="Add one: Desk or table">+</button>
+                    </span>
+                  </div>
+                  <div class="qb-row" data-item="Other furniture item">
+                    <span class="qb-name">Other furniture item</span>
+                    <span class="qb-step">
+                      <button type="button" class="qb-btn" data-qb="minus" aria-label="Remove one: Other furniture item">&minus;</button>
+                      <span class="qb-qty" aria-live="polite">0</span>
+                      <button type="button" class="qb-btn" data-qb="plus" aria-label="Add one: Other furniture item">+</button>
+                    </span>
+                  </div>
+                  <div class="qb-row" data-item="Bike or outdoor equipment">
+                    <span class="qb-name">Bike or outdoor equipment</span>
+                    <span class="qb-step">
+                      <button type="button" class="qb-btn" data-qb="minus" aria-label="Remove one: Bike or outdoor equipment">&minus;</button>
+                      <span class="qb-qty" aria-live="polite">0</span>
+                      <button type="button" class="qb-btn" data-qb="plus" aria-label="Add one: Bike or outdoor equipment">+</button>
+                    </span>
+                  </div>
+                </details>
+                <details class="qb-group">
+                  <summary>Shelving and storage<span class="qb-count" data-group-count></span></summary>
+                  <div class="qb-row" data-item="Put up a single shelf">
+                    <span class="qb-name">Put up a single shelf</span>
+                    <span class="qb-step">
+                      <button type="button" class="qb-btn" data-qb="minus" aria-label="Remove one: Put up a single shelf">&minus;</button>
+                      <span class="qb-qty" aria-live="polite">0</span>
+                      <button type="button" class="qb-btn" data-qb="plus" aria-label="Add one: Put up a single shelf">+</button>
+                    </span>
+                  </div>
+                  <div class="qb-row" data-item="Put up several shelves">
+                    <span class="qb-name">Put up several shelves</span>
+                    <span class="qb-step">
+                      <button type="button" class="qb-btn" data-qb="minus" aria-label="Remove one: Put up several shelves">&minus;</button>
+                      <span class="qb-qty" aria-live="polite">0</span>
+                      <button type="button" class="qb-btn" data-qb="plus" aria-label="Add one: Put up several shelves">+</button>
+                    </span>
+                  </div>
+                  <div class="qb-row" data-item="Wall mounted storage or rack">
+                    <span class="qb-name">Wall mounted storage or rack</span>
+                    <span class="qb-step">
+                      <button type="button" class="qb-btn" data-qb="minus" aria-label="Remove one: Wall mounted storage or rack">&minus;</button>
+                      <span class="qb-qty" aria-live="polite">0</span>
+                      <button type="button" class="qb-btn" data-qb="plus" aria-label="Add one: Wall mounted storage or rack">+</button>
+                    </span>
+                  </div>
+                </details>
+                <details class="qb-group">
+                  <summary>Garden<span class="qb-count" data-group-count></span></summary>
+                  <div class="qb-row" data-item="Mow a lawn">
+                    <span class="qb-name">Mow a lawn</span>
+                    <span class="qb-step">
+                      <button type="button" class="qb-btn" data-qb="minus" aria-label="Remove one: Mow a lawn">&minus;</button>
+                      <span class="qb-qty" aria-live="polite">0</span>
+                      <button type="button" class="qb-btn" data-qb="plus" aria-label="Add one: Mow a lawn">+</button>
+                    </span>
+                  </div>
+                  <div class="qb-row" data-item="Trim a hedge">
+                    <span class="qb-name">Trim a hedge</span>
+                    <span class="qb-step">
+                      <button type="button" class="qb-btn" data-qb="minus" aria-label="Remove one: Trim a hedge">&minus;</button>
+                      <span class="qb-qty" aria-live="polite">0</span>
+                      <button type="button" class="qb-btn" data-qb="plus" aria-label="Add one: Trim a hedge">+</button>
+                    </span>
+                  </div>
+                  <div class="qb-row" data-item="Pruning and general tidy up">
+                    <span class="qb-name">Pruning and general tidy up</span>
+                    <span class="qb-step">
+                      <button type="button" class="qb-btn" data-qb="minus" aria-label="Remove one: Pruning and general tidy up">&minus;</button>
+                      <span class="qb-qty" aria-live="polite">0</span>
+                      <button type="button" class="qb-btn" data-qb="plus" aria-label="Add one: Pruning and general tidy up">+</button>
+                    </span>
+                  </div>
+                  <div class="qb-row" data-item="Planting">
+                    <span class="qb-name">Planting</span>
+                    <span class="qb-step">
+                      <button type="button" class="qb-btn" data-qb="minus" aria-label="Remove one: Planting">&minus;</button>
+                      <span class="qb-qty" aria-live="polite">0</span>
+                      <button type="button" class="qb-btn" data-qb="plus" aria-label="Add one: Planting">+</button>
+                    </span>
+                  </div>
+                  <div class="qb-row" data-item="Strimming and edging">
+                    <span class="qb-name">Strimming and edging</span>
+                    <span class="qb-step">
+                      <button type="button" class="qb-btn" data-qb="minus" aria-label="Remove one: Strimming and edging">&minus;</button>
+                      <span class="qb-qty" aria-live="polite">0</span>
+                      <button type="button" class="qb-btn" data-qb="plus" aria-label="Add one: Strimming and edging">+</button>
+                    </span>
+                  </div>
+                  <div class="qb-row" data-item="Garden waste taken away">
+                    <span class="qb-name">Garden waste taken away</span>
+                    <span class="qb-step">
+                      <button type="button" class="qb-btn" data-qb="minus" aria-label="Remove one: Garden waste taken away">&minus;</button>
+                      <span class="qb-qty" aria-live="polite">0</span>
+                      <button type="button" class="qb-btn" data-qb="plus" aria-label="Add one: Garden waste taken away">+</button>
+                    </span>
+                  </div>
+                </details>
+                <details class="qb-group">
+                  <summary>Ongoing maintenance<span class="qb-count" data-group-count></span></summary>
+                  <div class="qb-row" data-item="Landlord or holiday let maintenance visit">
+                    <span class="qb-name">Landlord or holiday let maintenance visit</span>
+                    <span class="qb-step">
+                      <button type="button" class="qb-btn" data-qb="minus" aria-label="Remove one: Landlord or holiday let maintenance visit">&minus;</button>
+                      <span class="qb-qty" aria-live="polite">0</span>
+                      <button type="button" class="qb-btn" data-qb="plus" aria-label="Add one: Landlord or holiday let maintenance visit">+</button>
+                    </span>
+                  </div>
+                </details>
+              </div>
+
+              <div class="qb-summary" data-qb-summary hidden>
+                <strong>Your quote list</strong>
+                <ul data-qb-list></ul>
+              </div>
+              <p class="form-error" data-qb-error role="alert" hidden>
+                Please add at least one job to your list, or tell us about it below.
+              </p>
+
+              <input type="hidden" name="service" value="" data-qb-service />
+              <textarea name="quoteList" data-qb-text hidden></textarea>
             </div>
 
             <div class="form-field full">
-              <label for="jobDetails">Tell Us About the Job</label>
+              <label for="jobDetails">Anything Else We Should Know?</label>
               <textarea
                 id="jobDetails"
                 name="jobDetails"
-                placeholder="Please describe the job, where it is, its approximate size or number of items, and any useful measurements."
-                required
+                placeholder="Describe the job, where it is, approximate size or number of items, and any useful measurements. If your job is not in the list, tell us here."
               ></textarea>
             </div>
 
@@ -849,6 +1094,70 @@
       });
     })();
   </script>
+    <script>
+      (function () {
+        var form = document.querySelector("[data-quote-form]");
+        if (!form) return;
+        var root = form.querySelector("[data-quote-builder]");
+        var summary = root.querySelector("[data-qb-summary]");
+        var list = root.querySelector("[data-qb-list]");
+        var err = root.querySelector("[data-qb-error]");
+        var text = root.querySelector("[data-qb-text]");
+        var svc = root.querySelector("[data-qb-service]");
+        var details = form.querySelector("#jobDetails");
+
+        function items() {
+          var out = [];
+          root.querySelectorAll(".qb-row").forEach(function (row) {
+            var q = parseInt(row.querySelector(".qb-qty").textContent, 10) || 0;
+            if (q > 0) out.push({ name: row.getAttribute("data-item"), qty: q });
+          });
+          return out;
+        }
+
+        function refresh() {
+          var chosen = items();
+          list.innerHTML = "";
+          chosen.forEach(function (c) {
+            var li = document.createElement("li");
+            li.textContent = c.qty + " x " + c.name;
+            list.appendChild(li);
+          });
+          summary.hidden = chosen.length === 0;
+          if (chosen.length) err.hidden = true;
+          root.querySelectorAll(".qb-group").forEach(function (g) {
+            var total = 0;
+            g.querySelectorAll(".qb-qty").forEach(function (s) { total += parseInt(s.textContent, 10) || 0; });
+            g.querySelector("[data-group-count]").textContent = total ? " (" + total + ")" : "";
+          });
+          text.value = chosen.map(function (c) { return c.qty + " x " + c.name; }).join("\n");
+          svc.value = chosen.length ? "Quote list: " + chosen.length + (chosen.length === 1 ? " job" : " jobs") : "Described in notes";
+        }
+
+        root.addEventListener("click", function (e) {
+          var b = e.target.closest(".qb-btn");
+          if (!b) return;
+          var q = b.parentNode.querySelector(".qb-qty");
+          var v = parseInt(q.textContent, 10) || 0;
+          v = b.getAttribute("data-qb") === "plus" ? Math.min(v + 1, 20) : Math.max(v - 1, 0);
+          q.textContent = v;
+          b.closest(".qb-row").classList.toggle("is-on", v > 0);
+          refresh();
+        });
+
+        form.addEventListener("submit", function (e) {
+          refresh();
+          if (!items().length && !details.value.trim()) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            err.hidden = false;
+            root.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        });
+        refresh();
+      })();
+    </script>
+
   <script src="./app.js" defer></script>
 </body>
 </html>
