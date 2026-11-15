@@ -25,8 +25,8 @@
     rel="stylesheet"
   />
 
-  <link rel="stylesheet" href="./base.css?v=20261115d" />
-  <link rel="stylesheet" href="./style.css?v=20261115d" />
+  <link rel="stylesheet" href="./base.css?v=20261115e" />
+  <link rel="stylesheet" href="./style.css?v=20261115e" />
   <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
   <link rel="stylesheet" href="https://vdk-viber-runtime-prod.bot.botpress.host/edge/webchat.css" />
 </head>
@@ -817,20 +817,62 @@
   </script>
 
   <script>
-    /* Keeps the chat bubble above the quick contact bar, and the open chat window above the whole site */
+    /* Keeps the chat bubble above the contact bar, fits the open chat window on screen,
+       and adds a Close chat button that is always reachable on phones */
     (function () {
+      var pill = null;
+
+      function makePill() {
+        pill = document.createElement('button');
+        pill.type = 'button';
+        pill.textContent = '\u2715  Close chat';
+        pill.setAttribute('aria-label', 'Close chat');
+        pill.style.cssText =
+          'position:fixed;right:12px;top:calc(env(safe-area-inset-top) + 10px);z-index:2147483647;' +
+          'display:none;padding:10px 16px;border-radius:9999px;border:0;background:#0a0a4f;color:#fff;' +
+          'font:700 14px Montserrat,system-ui,sans-serif;box-shadow:0 6px 20px rgba(10,10,79,.35);cursor:pointer';
+        pill.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var els = document.body.querySelectorAll('*');
+          for (var i = 0; i < els.length; i++) {
+            var el = els[i];
+            if (el === pill || el.closest('.mobile-contact-bar')) continue;
+            if (getComputedStyle(el).position !== 'fixed') continue;
+            var r = el.getBoundingClientRect();
+            if (r.width >= 300 && r.height >= 300) {
+              el.setAttribute('data-hidden-by-site', '1');
+              el.style.setProperty('display', 'none', 'important');
+            }
+          }
+          pill.style.display = 'none';
+        });
+        document.body.appendChild(pill);
+      }
+
+      function restore() {
+        var hidden = document.querySelectorAll('[data-hidden-by-site]');
+        for (var i = 0; i < hidden.length; i++) {
+          hidden[i].style.removeProperty('display');
+          hidden[i].removeAttribute('data-hidden-by-site');
+        }
+      }
+
       function tidy() {
+        if (!pill) makePill();
         var phone = window.matchMedia('(max-width: 760px)').matches;
         var bar = document.querySelector('.mobile-contact-bar');
         var barHeight = bar ? bar.offsetHeight : 60;
         var all = document.body.querySelectorAll('*');
+        var bigOpen = false;
         for (var i = 0; i < all.length; i++) {
           var el = all[i];
-          if (el === bar || el.closest('.mobile-contact-bar')) continue;
-          if (getComputedStyle(el).position !== 'fixed') continue;
+          if (el === pill || el === bar || el.closest('.mobile-contact-bar')) continue;
+          var cs = getComputedStyle(el);
+          if (cs.position !== 'fixed') continue;
           el.style.setProperty('z-index', '2147483000', 'important');
           var r = el.getBoundingClientRect();
           var small = r.width >= 40 && r.width <= 140 && r.height >= 40 && r.height <= 140;
+          var big = r.width >= 300 && r.height >= 300;
           if (small && r.left >= window.innerWidth / 2) {
             if (phone) {
               el.style.setProperty('bottom', 'calc(' + (barHeight + 16) + 'px + env(safe-area-inset-bottom))', 'important');
@@ -838,12 +880,31 @@
               el.style.removeProperty('bottom');
             }
           }
+          if (big && cs.display !== 'none' && cs.visibility !== 'hidden' && parseFloat(cs.opacity) > 0.05) {
+            bigOpen = true;
+            if (phone && r.top < 60 && !el.hasAttribute('data-fitted')) {
+              var gap = Math.max(0, Math.round(window.innerHeight - r.bottom));
+              el.setAttribute('data-fitted', '1');
+              el.style.setProperty('top', '70px', 'important');
+              el.style.setProperty('bottom', gap + 'px', 'important');
+              el.style.setProperty('height', 'auto', 'important');
+              el.style.setProperty('max-height', 'none', 'important');
+            }
+          } else if (big === false && el.hasAttribute('data-fitted') && !(r.width >= 300)) {
+            el.removeAttribute('data-fitted');
+          }
         }
+        pill.style.display = phone && bigOpen ? 'block' : 'none';
       }
+
+      document.addEventListener('click', function (e) {
+        if (pill && (e.target === pill)) return;
+        restore();
+        setTimeout(tidy, 150);
+      }, true);
       setInterval(tidy, 400);
       window.addEventListener('resize', tidy);
       window.addEventListener('touchend', function () { setTimeout(tidy, 150); }, { passive: true });
-      window.addEventListener('click', function () { setTimeout(tidy, 150); });
     })();
   </script>
   <script>
