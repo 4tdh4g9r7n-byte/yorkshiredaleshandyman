@@ -25,8 +25,8 @@
     rel="stylesheet"
   />
 
-  <link rel="stylesheet" href="./base.css?v=20261115j" />
-  <link rel="stylesheet" href="./style.css?v=20261115j" />
+  <link rel="stylesheet" href="./base.css?v=20261115l" />
+  <link rel="stylesheet" href="./style.css?v=20261115l" />
   <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
   <link rel="stylesheet" href="https://vdk-viber-runtime-prod.bot.botpress.host/edge/webchat.css" />
 </head>
@@ -816,75 +816,6 @@
       );
   </script>
 
-  <script>
-    /* Chat helper for phones: lifts the chat bubble above the contact bar and
-       fits the open chat window on screen so its own close button is visible */
-    (function () {
-      var FIT_PROPS = ['top', 'bottom', 'height', 'max-height'];
-      function saveStyles(el) {
-        var saved = {};
-        FIT_PROPS.forEach(function (p) {
-          saved[p] = [el.style.getPropertyValue(p), el.style.getPropertyPriority(p)];
-        });
-        el.__savedStyles = saved;
-      }
-      function restoreStyles(el) {
-        var saved = el.__savedStyles || {};
-        var applied = el.__appliedStyles || {};
-        FIT_PROPS.forEach(function (p) {
-          /* Only undo values we set ourselves; leave anything the chat changed since */
-          if (el.style.getPropertyValue(p) !== applied[p]) return;
-          var v = saved[p];
-          if (v && v[0]) el.style.setProperty(p, v[0], v[1]);
-          else el.style.removeProperty(p);
-        });
-      }
-
-      function tidy() {
-        var phone = window.matchMedia('(max-width: 760px)').matches;
-        var bar = document.querySelector('.mobile-contact-bar');
-        var barHeight = bar ? bar.offsetHeight : 60;
-        var all = document.body.querySelectorAll('*');
-        for (var i = 0; i < all.length; i++) {
-          var el = all[i];
-          if (el === bar || el.closest('.mobile-contact-bar')) continue;
-          var cs = getComputedStyle(el);
-          if (cs.position !== 'fixed') continue;
-          el.style.setProperty('z-index', '2147483000', 'important');
-          /* Undo any earlier fitting first, so a closed chat goes back to its normal spot */
-          if (el.hasAttribute('data-fitted')) {
-            el.removeAttribute('data-fitted');
-            restoreStyles(el);
-            cs = getComputedStyle(el);
-          }
-          var r = el.getBoundingClientRect();
-          var small = r.width >= 40 && r.width <= 140 && r.height >= 40 && r.height <= 140;
-          var big = r.width >= 300 && r.height >= 300;
-          if (small && r.left >= window.innerWidth / 2) {
-            if (phone) {
-              el.style.setProperty('bottom', 'calc(' + (barHeight + 16) + 'px + env(safe-area-inset-bottom))', 'important');
-            } else {
-              el.style.removeProperty('bottom');
-            }
-          }
-          if (big && phone && cs.display !== 'none' && r.top < 60) {
-            var gap = Math.max(0, Math.round(window.innerHeight - r.bottom));
-            el.setAttribute('data-fitted', '1');
-            saveStyles(el);
-            el.style.setProperty('top', '70px', 'important');
-            el.style.setProperty('bottom', gap + 'px', 'important');
-            el.style.setProperty('height', 'auto', 'important');
-            el.style.setProperty('max-height', 'none', 'important');
-            el.__appliedStyles = { 'top': '70px', 'bottom': gap + 'px', 'height': 'auto', 'max-height': 'none' };
-          }
-        }
-      }
-      setInterval(tidy, 400);
-      window.addEventListener('resize', tidy);
-      window.addEventListener('touchend', function () { setTimeout(tidy, 150); }, { passive: true });
-      window.addEventListener('click', function () { setTimeout(tidy, 150); });
-    })();
-  </script>
   <script>
     /* Starts the hero video as soon as the page opens */
     (function () {
