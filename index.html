@@ -745,6 +745,8 @@
 
               <input type="hidden" name="service" value="" data-qb-service />
               <textarea name="quoteList" data-qb-text hidden></textarea>
+              <textarea name="approxBreakdown" data-qb-est hidden></textarea>
+              <input type="hidden" name="approxTotal" value="" data-qb-total />
             </div>
 
             <div class="form-field full">
@@ -1106,6 +1108,63 @@
         var text = root.querySelector("[data-qb-text]");
         var svc = root.querySelector("[data-qb-service]");
         var details = form.querySelector("#jobDetails");
+        var est = root.querySelector("[data-qb-est]");
+        var totalField = root.querySelector("[data-qb-total]");
+        var subject = form.querySelector('[name="subject"]');
+        var baseSubject = subject ? subject.value : "";
+
+        /* Private estimate for the enquiry email only. Hours per job, and the market price where one is known. */
+        var RATE = 35, MIN_CHARGE = 40, DISCOUNT = 0.05;
+        var JOBS = {
+          "Fix a loose door, hinge or handle": [1],
+          "Hang pictures or mirrors": [1, 45],
+          "Hang a curtain pole or blind": [1, 45],
+          "Seal around a bath, sink or shower": [1.5],
+          "Replace a small fitting or fixture": [1],
+          "Other small repair": [1],
+          "Paint walls in a room": [6],
+          "Paint woodwork or doors": [4, 95],
+          "Paint a ceiling": [3],
+          "Fill and touch up paintwork": [2],
+          "Small plaster patch repair": [2],
+          "Fill and make good cracks": [2],
+          "Flat pack wardrobe": [3, 90],
+          "Flat pack bed": [2],
+          "Chest of drawers or bookcase": [1.5],
+          "Desk or table": [1.5],
+          "Other furniture item": [1.5],
+          "Bike or outdoor equipment": [1.5],
+          "Put up a single shelf": [1],
+          "Put up several shelves": [6, 200],
+          "Wall mounted storage or rack": [2],
+          "Mow a lawn": [1.5, 45],
+          "Trim a hedge": [3, 120],
+          "Pruning and general tidy up": [2],
+          "Planting": [2],
+          "Strimming and edging": [2, 62.5],
+          "Garden waste taken away": [0, 0, 30],
+          "Landlord or holiday let maintenance visit": [2]
+        };
+        function unitPrice(name) {
+          var j = JOBS[name];
+          if (!j) return 0;
+          if (j[2]) return j[2];
+          var raw = j[0] * RATE;
+          if (j[1] && raw > j[1]) raw = j[1];
+          return Math.floor((raw * (1 - DISCOUNT)) / 5 + 1e-9) * 5;
+        }
+        function estimate(chosen) {
+          var lines = [], sum = 0;
+          chosen.forEach(function (c) {
+            var u = unitPrice(c.name), t = u * c.qty;
+            sum += t;
+            lines.push(c.qty + " x " + c.name + ": " + (u ? "GBP " + u + " each, GBP " + t : "price on request"));
+          });
+          var total = Math.max(MIN_CHARGE, sum);
+          if (sum && sum < MIN_CHARGE) lines.push("Minimum charge applies: GBP " + MIN_CHARGE);
+          lines.push("APPROX TOTAL: GBP " + total + " (labour only, excludes materials, travel, VAT. Based on the draft pricing sheet with 5% launch discount.)");
+          return { text: lines.join("\n"), total: total };
+        }
 
         function items() {
           var out = [];
@@ -1132,6 +1191,16 @@
             g.querySelector("[data-group-count]").textContent = total ? " (" + total + ")" : "";
           });
           text.value = chosen.map(function (c) { return c.qty + " x " + c.name; }).join("\n");
+          if (chosen.length) {
+            var e = estimate(chosen);
+            est.value = e.text;
+            totalField.value = "GBP " + e.total;
+            if (subject) subject.value = baseSubject + " (approx GBP " + e.total + ")";
+          } else {
+            est.value = "";
+            totalField.value = "";
+            if (subject) subject.value = baseSubject;
+          }
           svc.value = chosen.length ? "Quote list: " + chosen.length + (chosen.length === 1 ? " job" : " jobs") : "Described in notes";
         }
 
