@@ -1454,3 +1454,25 @@ section {
 .hero-visual video.is-playing {
   opacity: 1;
 }
+
+/* ==========================================================================
+   Icon tiles: use the gold from the logo badge
+   ========================================================================== */
+
+:root {
+  --color-gold: #d5a03e;
+}
+
+.trust-icon,
+.trust-item:nth-child(2n) .trust-icon,
+.svc-icon,
+.svc-tile:nth-child(4n + 2) .svc-icon,
+.svc-tile:nth-child(4n + 3) .svc-icon,
+.contact-detail-icon {
+  background: var(--color-gold);
+  color: var(--color-primary);
+}
+.trust-icon svg,
+.trust-item:nth-child(2n) .trust-icon svg {
+  color: var(--color-primary);
+}
