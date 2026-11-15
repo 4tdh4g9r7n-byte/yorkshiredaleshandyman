@@ -1058,7 +1058,8 @@
       .then((res) => res.json())
       .then(({ webchat }) =>
         VdkEdgeWebchat.mount({ ...webchat, mode: "bubble", baseUrl: "https://vdk-viber-runtime-prod.bot.botpress.host", botId: "68c47593-d326-477c-9b10-abfac4bd5b66" })
-      );
+      )
+      .then(function (api) { window.ydhChat = api; });
   </script>
 
   <script>
@@ -1158,62 +1159,61 @@
       })();
     </script>
 
+  <style>
+    /* One close button only. We hide the chat's own and show ours, top right, while the chat is open on a phone. */
+    @media (max-width: 480px) {
+      .vdk-edge-mode-bubble .vdk-edge-close { display: none !important; }
+    }
+    .ydh-chat-x {
+      display: none;
+      position: fixed;
+      top: calc(10px + env(safe-area-inset-top, 0px));
+      right: 12px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 0;
+      background: rgba(10, 10, 79, 0.9);
+      color: #fff;
+      font-size: 26px;
+      line-height: 1;
+      z-index: 2147483600;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+    }
+    .ydh-chat-x.is-shown { display: inline-flex; }
+  </style>
+  <button type="button" class="ydh-chat-x" id="ydhChatX" aria-label="Close chat">&times;</button>
   <script>
-    /* Phone chat helper. Lifts the small chat bubble above the contact bar, and makes sure the open chat window fits under the header so its close button stays reachable. It stands down while the keyboard is showing. */
+    /* Chat helper for phones. While the chat is closed it keeps the bubble above the contact bar. While it is open it removes that lift so the window fills the screen, and shows one close button top right. */
     (function () {
-      var mq = window.matchMedia("(max-width: 760px)");
-      var PROPS = ["top", "bottom", "height", "max-height"];
-      var fitted = new WeakMap();
+      var mq = window.matchMedia("(max-width: 480px)");
+      var x = document.getElementById("ydhChatX");
 
-      function undoFit(el) {
-        var saved = fitted.get(el);
-        if (!saved) return;
-        PROPS.forEach(function (p) {
-          if (saved[p].v) el.style.setProperty(p, saved[p].v, saved[p].pr);
-          else el.style.removeProperty(p);
-        });
-        fitted.delete(el);
-      }
-
-      function fit(el, gap) {
-        if (fitted.has(el)) return;
-        var saved = {};
-        PROPS.forEach(function (p) {
-          saved[p] = { v: el.style.getPropertyValue(p), pr: el.style.getPropertyPriority(p) };
-        });
-        fitted.set(el, saved);
-        el.style.setProperty("top", "72px", "important");
-        el.style.setProperty("bottom", gap + "px", "important");
-        el.style.setProperty("height", "auto", "important");
-        el.style.setProperty("max-height", "none", "important");
-      }
+      x.addEventListener("click", function () {
+        if (window.ydhChat && window.ydhChat.close) { window.ydhChat.close(); return; }
+        var nativeX = document.querySelector(".vdk-edge-close");
+        if (nativeX) nativeX.click();
+      });
 
       function tidy() {
-        if (!mq.matches) return;
-        var vv = window.visualViewport;
-        if (vv && vv.height < window.innerHeight - 120) return;
+        var c = document.querySelector(".vdk-edge-mode-bubble");
+        var open = !!(c && c.classList.contains("vdk-edge-open"));
+        x.classList.toggle("is-shown", open && mq.matches);
+        if (!c) return;
+        if (open) {
+          if (c.style.getPropertyValue("bottom")) c.style.removeProperty("bottom");
+          return;
+        }
         var bar = document.querySelector(".mobile-contact-bar");
-        if (!bar) return;
+        if (!bar || !window.matchMedia("(max-width: 760px)").matches) return;
         var gap = Math.round(bar.getBoundingClientRect().height) + 16;
-        var els = document.querySelectorAll("body > *, body > * > *");
-        for (var i = 0; i < els.length; i++) {
-          var el = els[i];
-          if (el === bar || bar.contains(el) || el.tagName === "SCRIPT" || el.tagName === "HEADER") continue;
-          var r = el.getBoundingClientRect();
-          if (getComputedStyle(el).position !== "fixed") continue;
-          if (r.width >= 300 && r.height >= 300) {
-            if (r.top < 72 && !fitted.has(el)) fit(el, gap);
-            continue;
-          }
-          if (fitted.has(el) && r.width <= 130) undoFit(el);
-          if (r.width < 20 || r.width > 130 || r.height > 130) continue;
-          if (r.left < window.innerWidth / 2 || r.bottom < window.innerHeight - 150) continue;
-          if (el.style.getPropertyValue("bottom") !== gap + "px") {
-            el.style.setProperty("bottom", gap + "px", "important");
-          }
+        if (c.style.getPropertyValue("bottom") !== gap + "px") {
+          c.style.setProperty("bottom", gap + "px", "important");
         }
       }
-      setInterval(tidy, 1000);
+      setInterval(tidy, 400);
       window.addEventListener("load", tidy);
     })();
   </script>
